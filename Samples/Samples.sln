@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbr1.2", "6. PRB\1.2.lighting_textured\pbr1.2.csproj", "{D022BBB5-9FF0-42AF-8656-AF3D3C250B96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D022BBB5-9FF0-42AF-8656-AF3D3C250B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D022BBB5-9FF0-42AF-8656-AF3D3C250B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D022BBB5-9FF0-42AF-8656-AF3D3C250B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D022BBB5-9FF0-42AF-8656-AF3D3C250B96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47BA7212-91C4-469F-9BD4-7F2E8CF459FB}
+	EndGlobalSection
+EndGlobal
