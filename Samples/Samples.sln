@@ -5,6 +5,14 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbr1.2", "6. PRB\1.2.lighting_textured\pbr1.2.csproj", "{D022BBB5-9FF0-42AF-8656-AF3D3C250B96}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Advanced Lighting", "Advanced Lighting", "{ADDABEAC-CB64-4D54-B73C-C3585EE5893A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PBR", "PBR", "{4E0C3403-C03E-423E-A7F0-894606D20364}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NormalMapping", "Advanced Lighting\Normal Mapping\NormalMapping.csproj", "{3FA30165-3CBB-4A0C-BAEA-F64B2C8FE0EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowMapping", "Advanced Lighting\Shadow Mapping\ShadowMapping.csproj", "{A67C0F99-4680-43BC-927C-407B8421DEBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +23,22 @@ Global
 		{D022BBB5-9FF0-42AF-8656-AF3D3C250B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D022BBB5-9FF0-42AF-8656-AF3D3C250B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D022BBB5-9FF0-42AF-8656-AF3D3C250B96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FA30165-3CBB-4A0C-BAEA-F64B2C8FE0EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA30165-3CBB-4A0C-BAEA-F64B2C8FE0EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FA30165-3CBB-4A0C-BAEA-F64B2C8FE0EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA30165-3CBB-4A0C-BAEA-F64B2C8FE0EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A67C0F99-4680-43BC-927C-407B8421DEBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A67C0F99-4680-43BC-927C-407B8421DEBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A67C0F99-4680-43BC-927C-407B8421DEBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A67C0F99-4680-43BC-927C-407B8421DEBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D022BBB5-9FF0-42AF-8656-AF3D3C250B96} = {4E0C3403-C03E-423E-A7F0-894606D20364}
+		{3FA30165-3CBB-4A0C-BAEA-F64B2C8FE0EC} = {ADDABEAC-CB64-4D54-B73C-C3585EE5893A}
+		{A67C0F99-4680-43BC-927C-407B8421DEBE} = {ADDABEAC-CB64-4D54-B73C-C3585EE5893A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47BA7212-91C4-469F-9BD4-7F2E8CF459FB}
