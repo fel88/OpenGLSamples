@@ -207,7 +207,7 @@ namespace pbr
                 // -------------
                 lightPos = new Vector3(-2.0f, 4.0f, -1.0f);
 
-               
+
 
 
                 first = false;
@@ -285,12 +285,18 @@ namespace pbr
 
         int woodTexture;
 
-
-
         Camera camera = new Camera(new Vector3(0.0f, 0.0f, 3.0f));
         void Redraw()
         {
             GL.Enable(EnableCap.DepthTest);
+
+            // change light position over time
+            if (dynamicLight)
+            {
+                lightPos.X = (float)(Math.Sin(glfwGetTime()) * 3.0f);
+                lightPos.Z = (float)(Math.Cos(glfwGetTime()) * 2.0f);
+                lightPos.Y = (float)(5.0f + Math.Cos(glfwGetTime()) * 1.0f);
+            }
 
             GL.ClearColor(0.1f, 0.1f, 0.1f, 1f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -302,7 +308,7 @@ namespace pbr
             //lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
             lightProjection = Matrix4.CreateOrthographicOffCenter(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
             lightView = Matrix4.LookAt(lightPos, new Vector3(0.0f), new Vector3(0.0f, 1.0f, 0.0f));
-            lightSpaceMatrix = lightProjection * lightView;
+            lightSpaceMatrix = lightView * lightProjection;
             // render scene from light's point of view
             simpleDepthShader.use();
             simpleDepthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
