@@ -1,3 +1,3 @@
-# PBR lighting
+# Normal Mapping
 
-https://learnopengl.com/PBR/Lighting
+https://learnopengl.com/Advanced-Lighting/Normal-Mapping

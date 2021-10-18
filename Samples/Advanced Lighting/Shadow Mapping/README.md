@@ -1,3 +1,3 @@
-# PBR lighting
+# Shadow Mapping
 
-https://learnopengl.com/PBR/Lighting
+https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping

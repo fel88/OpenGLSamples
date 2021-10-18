@@ -3,5 +3,4 @@ bin/
 obj/
 packages/
 *.bak
-*.png
-*.jpg
+textures/
