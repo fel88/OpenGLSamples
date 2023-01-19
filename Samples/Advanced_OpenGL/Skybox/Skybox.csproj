@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D022BBB5-9FF0-42AF-8656-AF3D3C250B96}</ProjectGuid>
+    <ProjectGuid>{7854F4A3-1A0C-4AFF-8094-CE5131445579}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>pbr</RootNamespace>
-    <AssemblyName>pbr</AssemblyName>
+    <RootNamespace>NormalMapping</RootNamespace>
+    <AssemblyName>NormalMapping</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -33,11 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenTK, Version=3.3.3.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\OpenTK.3.3.3\lib\net20\OpenTK.dll</HintPath>
+    <Reference Include="OpenTK, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\OpenTK.3.1.0\lib\net20\OpenTK.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTK.GLControl, Version=3.3.3.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\OpenTK.GLControl.3.3.3\lib\net20\OpenTK.GLControl.dll</HintPath>
+    <Reference Include="OpenTK.GLControl, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OpenTK.GLControl.3.1.0\lib\net20\OpenTK.GLControl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -88,21 +89,26 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="shaders\6.1.skybox.fs" />
+    <EmbeddedResource Include="shaders\6.1.skybox.vs" />
+    <EmbeddedResource Include="shaders\6.1.cubemaps.fs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="shaders\1.2.pbr.fs.txt" />
-    <EmbeddedResource Include="shaders\1.2.pbr.vs.txt" />
+    <EmbeddedResource Include="shaders\6.1.cubemaps.vs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="textures\albedo.png" />
-    <EmbeddedResource Include="textures\ao.png" />
-    <EmbeddedResource Include="textures\metallic.png" />
-    <EmbeddedResource Include="textures\normal.png" />
-    <EmbeddedResource Include="textures\roughness.png" />
+    <EmbeddedResource Include="textures\skybox\back.jpg" />
+    <EmbeddedResource Include="textures\skybox\bottom.jpg" />
+    <EmbeddedResource Include="textures\skybox\front.jpg" />
+    <EmbeddedResource Include="textures\skybox\left.jpg" />
+    <EmbeddedResource Include="textures\skybox\right.jpg" />
+    <EmbeddedResource Include="textures\skybox\top.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="textures\container.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

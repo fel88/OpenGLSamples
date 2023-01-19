@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30320.27
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbr1.2", "6. PRB\1.2.lighting_textured\pbr1.2.csproj", "{D022BBB5-9FF0-42AF-8656-AF3D3C250B96}"
 EndProject
@@ -16,6 +16,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lighting", "Lighting", "{C0D290C3-8A03-45E9-9EAB-7B1005B0EDD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleLights", "Lighting\Multiple lights\MultipleLights.csproj", "{CD4A84A2-94EB-4522-B568-EE8DA72BDFA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Advanced OpenGL", "Advanced OpenGL", "{734F3792-DE54-4A75-8B94-C7A9F2841B9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skybox", "Advanced_OpenGL\Skybox\Skybox.csproj", "{7854F4A3-1A0C-4AFF-8094-CE5131445579}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,10 @@ Global
 		{CD4A84A2-94EB-4522-B568-EE8DA72BDFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD4A84A2-94EB-4522-B568-EE8DA72BDFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD4A84A2-94EB-4522-B568-EE8DA72BDFA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7854F4A3-1A0C-4AFF-8094-CE5131445579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7854F4A3-1A0C-4AFF-8094-CE5131445579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7854F4A3-1A0C-4AFF-8094-CE5131445579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7854F4A3-1A0C-4AFF-8094-CE5131445579}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,7 @@ Global
 		{3FA30165-3CBB-4A0C-BAEA-F64B2C8FE0EC} = {ADDABEAC-CB64-4D54-B73C-C3585EE5893A}
 		{A67C0F99-4680-43BC-927C-407B8421DEBE} = {ADDABEAC-CB64-4D54-B73C-C3585EE5893A}
 		{CD4A84A2-94EB-4522-B568-EE8DA72BDFA9} = {C0D290C3-8A03-45E9-9EAB-7B1005B0EDD1}
+		{7854F4A3-1A0C-4AFF-8094-CE5131445579} = {734F3792-DE54-4A75-8B94-C7A9F2841B9E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47BA7212-91C4-469F-9BD4-7F2E8CF459FB}
