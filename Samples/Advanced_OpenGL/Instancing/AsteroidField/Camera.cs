@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenTK;
 
-namespace Skybox
+namespace AsteroidField
 {
     public class Camera
     {

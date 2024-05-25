@@ -4,7 +4,7 @@ using System.Reflection;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace Skybox
+namespace AsteroidField
 {
     public class Shader
     {
@@ -47,7 +47,7 @@ namespace Skybox
             GL.DeleteShader(vertex);
             GL.DeleteShader(fragment);
         }
-        int ID;
+        public readonly int ID;
         void checkCompileErrors(int shader, string type)
         {
             int success;
