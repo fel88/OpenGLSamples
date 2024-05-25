@@ -1,4 +1,4 @@
-﻿namespace Skybox
+﻿namespace AsteroidFieldSlow
 {
     partial class Form1
     {
@@ -45,7 +45,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Instancing 1";
+            this.Text = "Asteroid field slow";
             this.ResumeLayout(false);
 
         }

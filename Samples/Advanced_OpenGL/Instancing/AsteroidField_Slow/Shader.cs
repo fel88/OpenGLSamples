@@ -1,32 +1,17 @@
-﻿using System.IO;
-using System.Linq;
-using System.Reflection;
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace Skybox
+namespace AsteroidFieldSlow
 {
     public class Shader
     {
-        public static string ReadResourceTxt(string resourceName)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var fr1 = assembly.GetManifestResourceNames().First(z => z.Contains(resourceName));
-
-            using (Stream stream = assembly.GetManifestResourceStream(fr1))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-
         public Shader(string v1, string v2)
         {
             // 2. compile shaders
             int vertex, fragment;
             // vertex shader
-            string vShaderCode = ReadResourceTxt(v1);
-            string fShaderCode = ReadResourceTxt(v2);
+            string vShaderCode = ResourcesHelper.ReadResourceTxt(v1);
+            string fShaderCode = ResourcesHelper.ReadResourceTxt(v2);
             vertex = GL.CreateShader(ShaderType.VertexShader);
 
             GL.ShaderSource(vertex, vShaderCode);
@@ -47,7 +32,7 @@ namespace Skybox
             GL.DeleteShader(vertex);
             GL.DeleteShader(fragment);
         }
-        int ID;
+        public readonly int ID;
         void checkCompileErrors(int shader, string type)
         {
             int success;

@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Skybox
+namespace AsteroidFieldSlow
 {
     public class MessageFilter : IMessageFilter
     {
