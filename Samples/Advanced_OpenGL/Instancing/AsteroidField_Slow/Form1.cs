@@ -18,7 +18,7 @@ namespace AsteroidFieldSlow
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            var deltaTime = 0.010f;
+            var deltaTime = (float)this.deltaTime;
             if (keyData == Keys.Escape)
             {
                 Close();
@@ -44,7 +44,16 @@ namespace AsteroidFieldSlow
                 camera.ProcessKeyboard(Camera_Movement.RIGHT, deltaTime);
                 return true;
             }
-
+            if (keyData == Keys.Q)
+            {
+                camera.ProcessKeyboard(Camera_Movement.TOP, deltaTime);
+                return true;
+            }
+            if (keyData == Keys.E)
+            {
+                camera.ProcessKeyboard(Camera_Movement.DOWN, deltaTime);
+                return true;
+            }
             return false;
         }
         public Form1()
@@ -68,12 +77,12 @@ namespace AsteroidFieldSlow
             var xpos = cur.X;
             var ypos = cur.Y;
 
-            if (firstMouse)
+            /*if (firstMouse)
             {
                 lastX = xpos;
                 lastY = ypos;
                 firstMouse = false;
-            }
+            }*/
 
             float xoffset = xpos - lastX;
             float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
@@ -87,10 +96,11 @@ namespace AsteroidFieldSlow
         float lastY = 600.0f / 2.0f;
         bool firstMouse = true;
 
-
         private void Form1_MouseWheel(object sender, MouseEventArgs e)
         {
-            camera.ProcessMouseScroll(e.Delta / 120);
+            var d = camera.Position.Normalized();
+            camera.Position -= d *( e.Delta / 120f);
+            //camera.ProcessMouseScroll(e.Delta / 120);
         }
 
 
@@ -198,12 +208,9 @@ namespace AsteroidFieldSlow
         }
 
 
+        int amount = 1000;
 
-
-        int amount = 2000;
-
-
-        Camera camera = new Camera(new Vector3(0.0f, 0.0f, 55.0f));
+        Camera camera = new Camera(new Vector3(0.0f, 3, 55.0f));
 
         // timing
         double deltaTime = 0.0f;
@@ -225,7 +232,8 @@ namespace AsteroidFieldSlow
 
             // configure transformation matrices
             //glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 1000.0f);
-            var projection = Matrix4.CreatePerspectiveFieldOfView((float)Camera.radians(camera.Zoom), (float)glControl.Width / (float)glControl.Height, 0.1f, 1000.0f);
+            //var projection = Matrix4.CreatePerspectiveFieldOfView((float)Camera.radians(camera.Zoom), (float)glControl.Width / (float)glControl.Height, 0.1f, 1000.0f);
+            var projection = Matrix4.CreatePerspectiveFieldOfView((float)(45*Math.PI/180), (float)glControl.Width / (float)glControl.Height, 0.1f, 1000.0f);
 
             //glm::mat4 view = camera.GetViewMatrix(); ;
             var view = camera.GetViewMatrix();

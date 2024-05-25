@@ -6,7 +6,9 @@
         FORWARD,
         BACKWARD,
         LEFT,
-        RIGHT
+        RIGHT,
+        TOP,
+        DOWN
     };
 }
 

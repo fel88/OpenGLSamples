@@ -1,4 +1,4 @@
-# Skybox cubemap
+# Asteroid field (Slow edition)
 
-https://learnopengl.com/Advanced-OpenGL/Cubemaps
+https://learnopengl.com/Advanced-OpenGL/Instancing
 ![](img.jpg)

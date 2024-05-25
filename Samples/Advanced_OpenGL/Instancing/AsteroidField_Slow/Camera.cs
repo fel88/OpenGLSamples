@@ -74,7 +74,7 @@ namespace AsteroidFieldSlow
         // processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
         public void ProcessKeyboard(Camera_Movement direction, float deltaTime)
         {
-            float velocity = MovementSpeed * deltaTime;
+            var velocity = MovementSpeed * deltaTime;
             if (direction == Camera_Movement.FORWARD)
                 Position += Front * velocity;
             if (direction == Camera_Movement.BACKWARD)
@@ -82,7 +82,11 @@ namespace AsteroidFieldSlow
             if (direction == Camera_Movement.LEFT)
                 Position -= Right * velocity;
             if (direction == Camera_Movement.RIGHT)
-                Position += Right * velocity;
+                Position += Right * velocity; 
+            if (direction == Camera_Movement.TOP)
+                Position -= Up * velocity;
+            if (direction == Camera_Movement.DOWN)
+                Position += Up * velocity;
         }
 
         // processes input received from a mouse input system. Expects the offset value in both the x and y direction.
