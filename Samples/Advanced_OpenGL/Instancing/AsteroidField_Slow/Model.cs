@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 
 namespace AsteroidFieldSlow
 {
@@ -31,11 +32,20 @@ namespace AsteroidFieldSlow
                     {
                         using (var stream = zipEntry.Open())
                         {
-                            obj.Load(stream);
+                            var ctx = obj.Load(stream);
+                            var vrts = ctx.Vertices.Select(z => new Mesh.Vertex()
+                            {
+                                Position = z.Position.ToVector3(),
+                                Normal = z.Normal.ToVector3(),
+                                TexCoords = z.Texture.ToVector2(),
+                            });
+                            meshes.Add(new Mesh(vrts.ToArray(), ctx.Faces.SelectMany(z => z).ToArray(), new Texture[0]));
                         }
                     }
                 }
             }
+
+
             //todo: obj loader here
             //new Mesh()
         }

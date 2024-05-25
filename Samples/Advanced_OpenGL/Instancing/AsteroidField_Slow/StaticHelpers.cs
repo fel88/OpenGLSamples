@@ -18,20 +18,26 @@ namespace AsteroidFieldSlow
             return float.Parse(z.Replace(",", "."), CultureInfo.InvariantCulture);
         }
 
-        
         public static Vector3d ToVector3d(this Vector3 v)
         {
             return new Vector3d(v.X, v.Y, v.Z);
         }
+
         public static Vector2d ToVector2d(this PointF v)
         {
             return new Vector2d(v.X, v.Y);
         }
+
         public static Vector3 ToVector3(this Vector3d v)
         {
             return new Vector3((float)v.X, (float)v.Y, (float)v.Z);
         }
-        
+
+        public static Vector2 ToVector2(this Vector2d v)
+        {
+            return new Vector2((float)v.X, (float)v.Y);
+        }
+
         public static double DistTo(this PointF p, PointF p2)
         {
             return Math.Sqrt(Math.Pow(p.X - p2.X, 2) + Math.Pow(p.Y - p2.Y, 2));

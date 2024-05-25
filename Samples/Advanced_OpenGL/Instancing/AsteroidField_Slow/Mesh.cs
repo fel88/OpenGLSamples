@@ -11,15 +11,15 @@ namespace AsteroidFieldSlow
         public struct Vertex
         {
             // position
-            Vector3 Position;
+            public Vector3 Position;
             // normal
-            Vector3 Normal;
+            public Vector3 Normal;
             // texCoords
-            Vector2 TexCoords;
+            public Vector2 TexCoords;
             // tangent
-            Vector3 Tangent;
+            public Vector3 Tangent;
             // bitangent
-            Vector3 Bitangent;
+            public Vector3 Bitangent;
             //bone indexes which will influence this vertex
             //int m_BoneIDs[MAX_BONE_INFLUENCE];
             //int[] m_BoneIDs;

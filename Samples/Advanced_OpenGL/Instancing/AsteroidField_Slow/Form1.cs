@@ -116,11 +116,11 @@ namespace AsteroidFieldSlow
 
             modelMatrices = new Matrix4[amount];
             random = new Random(Guid.NewGuid().GetHashCode());
-                        
+
             float radius = 50.0f;
             float offset = 2.5f;
             for (int i = 0; i < amount; i++)
-            {               
+            {
                 var model = Matrix4.Identity;
                 //glm::mat4 model = glm::mat4(1.0f);
                 // 1. translation: displace along circle with 'radius' in range [-offset, offset]
@@ -132,17 +132,17 @@ namespace AsteroidFieldSlow
                 displacement = (rand() % (int)(2 * offset * 100)) / 100.0f - offset;
                 float z = cos(angle) * radius + displacement;
                 var tr = Matrix4.CreateTranslation(x, y, z);
-                model *= tr;
+                model = tr * model;
 
                 // 2. scale: Scale between 0.05 and 0.25f
                 float scale = (float)((rand() % 20) / 100.0 + 0.05);
                 var sc = Matrix4.CreateScale(scale);
-                model *= sc;
+                model = sc * model;
 
                 // 3. rotation: add random rotation around a (semi)randomly picked rotation axis vector
                 float rotAngle = (float)((rand() % 360));
                 var rt = Matrix4.CreateFromAxisAngle(new Vector3(0.4f, 0.6f, 0.8f), rotAngle);
-                model *= rt;
+                model = rt * model;
 
                 // 4. now add to list of matrices
                 modelMatrices[i] = model;
@@ -155,7 +155,7 @@ namespace AsteroidFieldSlow
 
         private float cos(float angle)
         {
-            return (float)Math.Cos(angle);            
+            return (float)Math.Cos(angle);
         }
 
         private float sin(float angle)
@@ -168,6 +168,9 @@ namespace AsteroidFieldSlow
             return random.Next();
         }
 
+        double lastFps = 0;
+        Stopwatch sw = new Stopwatch();
+        int cntr = 0;
         private void Gl_Paint(object sender, PaintEventArgs e)
         {
             if (!glControl.Context.IsCurrent)
@@ -177,29 +180,53 @@ namespace AsteroidFieldSlow
 
             if (first)
                 init();
-
+            sw.Stop();
+            if (sw.ElapsedMilliseconds > 0)
+            {
+                var newFps = 1000f / sw.ElapsedMilliseconds;
+                lastFps = lastFps * 0.9 + newFps * 0.1;
+            }
+            if (cntr > 10)
+            {
+                Text = "FPS: " + Math.Round(lastFps, 2);
+                cntr = 0;
+            }
+            cntr++;
+            sw.Restart();
             Redraw();
             glControl.SwapBuffers();
         }
 
-        
-                
-       
-        int amount = 1000;
 
 
-        Camera camera = new Camera(new Vector3(0.0f, 0.0f, 3.0f));
+
+        int amount = 2000;
+
+
+        Camera camera = new Camera(new Vector3(0.0f, 0.0f, 55.0f));
+
+        // timing
+        double deltaTime = 0.0f;
+        double lastFrame = 0.0f;
+        DateTime startTime = new DateTime();
+        double glfwGetTime()
+        {
+            return DateTime.Now.Subtract(startTime).TotalSeconds;
+        }
         void Redraw()
         {
             GL.Enable(EnableCap.DepthTest);
+            var currentFrame = glfwGetTime();
+            deltaTime = currentFrame - lastFrame;
+            lastFrame = currentFrame;
 
             GL.ClearColor(0.1f, 0.1f, 0.1f, 1f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            
 
             // configure transformation matrices
             //glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 1000.0f);
-            var projection = Matrix4.CreatePerspectiveFieldOfView((float)Camera.radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 1000.0f);
+            var projection = Matrix4.CreatePerspectiveFieldOfView((float)Camera.radians(camera.Zoom), (float)glControl.Width / (float)glControl.Height, 0.1f, 1000.0f);
+
             //glm::mat4 view = camera.GetViewMatrix(); ;
             var view = camera.GetViewMatrix();
             shader.use();
@@ -212,9 +239,9 @@ namespace AsteroidFieldSlow
             var model = Matrix4.Identity;
 
             var tr = Matrix4.CreateTranslation(0.0f, -3.0f, 0.0f);
-            model *= tr;
+            model = tr * model;
             var sc = Matrix4.CreateScale(4.0f, 4.0f, 4.0f);
-            model *= sc;
+            model = sc * model;
             shader.setMat4("model", model);
             planet.Draw(shader);
 
@@ -224,7 +251,6 @@ namespace AsteroidFieldSlow
                 shader.setMat4("model", modelMatrices[i]);
                 rock.Draw(shader);
             }
-
         }
 
 

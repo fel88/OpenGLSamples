@@ -59,7 +59,9 @@
     <Compile Include="Mesh.cs" />
     <Compile Include="MessageFilter.cs" />
     <Compile Include="Model.cs" />
+    <Compile Include="ObjIndexedTriangle.cs" />
     <Compile Include="ObjLoader.cs" />
+    <Compile Include="ObjParseContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourcesHelper.cs" />

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using OpenTK;
+using System;
+using System.Collections.Generic;
 
 namespace AsteroidFieldSlow
 {
@@ -6,5 +8,6 @@ namespace AsteroidFieldSlow
     {
         public List<TriangleInfo> Triangles = new List<TriangleInfo>();
     }
+
 }
 
