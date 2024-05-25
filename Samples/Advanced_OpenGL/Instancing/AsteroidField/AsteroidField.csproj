@@ -97,6 +97,7 @@
     <EmbeddedResource Include="shaders\10.3.asteroids.vs" />
     <EmbeddedResource Include="shaders\10.3.planet.fs" />
     <EmbeddedResource Include="shaders\10.3.planet.vs" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
