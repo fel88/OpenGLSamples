@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
@@ -81,11 +75,6 @@ namespace Breakout
             Width = SCREEN_WIDTH;
             Height = SCREEN_HEIGHT;
         }
-
-        
-        float lastX = 800.0f / 2.0f;
-        float lastY = 600.0f / 2.0f;
-        bool firstMouse = true;
 
 
         private void Form1_MouseWheel(object sender, MouseEventArgs e)
@@ -167,8 +156,7 @@ namespace Breakout
 
         Camera camera = new Camera(new Vector3(0.0f, 0, 155));
         void Redraw()
-        {
-            GL.Enable(EnableCap.DepthTest);
+        {            
             var currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
             lastFrame = currentFrame;
@@ -182,8 +170,8 @@ namespace Breakout
             Breakout.Update(deltaTime);
 
 
-            GL.ClearColor(0.1f, 0.1f, 0.1f, 1f);
-            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.ClearColor(0.0f, 0.0f, 0.0f, 1f);
+            GL.Clear(ClearBufferMask.ColorBufferBit);            
 
             // render
             // ------

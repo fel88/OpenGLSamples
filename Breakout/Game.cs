@@ -29,8 +29,8 @@ namespace Breakout
             // load shaders
             ResourceManager.LoadShader("sprite.vs", "sprite.frag", null, "sprite");
             // configure shaders
-            var projection = Matrix4.CreateOrthographicOffCenter(0,(float)(Width),
-                    (float)(Height), 0,-1.0f, 1.0f);
+            var projection = Matrix4.CreateOrthographicOffCenter(0, (float)(Width),
+                    (float)(Height), 0, -1.0f, 1.0f);
             ResourceManager.GetShader("sprite").use().SetInteger("image", 0);
             ResourceManager.GetShader("sprite").SetMatrix4("projection", projection);
             // set render-specific controls
@@ -38,13 +38,15 @@ namespace Breakout
             // load textures
             ResourceManager.LoadTexture("awesomeface.png", true, "face");
 
-        }
+        }   
         // game loop
         public void ProcessInput(float dt) { }
         public void Update(float dt) { }
+        
         public void Render()
-        {
-            Renderer.DrawSprite(ResourceManager.GetTexture("face"), new Vector2(200.0f, 200.0f), new Vector2(300.0f, 400.0f), 45.0f, new Vector3(0.0f, 1.0f, 0.0f));
+        {            
+            Renderer.DrawSprite(ResourceManager.GetTexture("face"), new Vector2(200.0f, 200.0f), new Vector2(300.0f, 400.0f), 45f,
+                new Vector3(0.0f, 1.0f, 0.0f));
         }
     }
 

@@ -14,12 +14,13 @@ namespace Breakout
             this.initRenderData();
         }
         // Destructor
-
-        // Renders a defined quad textured with given sprite
         ~SpriteRenderer()
         {
 
         }
+
+        // Renders a defined quad textured with given sprite
+
         public void DrawSprite(Texture2D texture, Vector2 position, Vector2 size, float rotate, Vector3 color)
         {
             // prepare transformations
@@ -27,8 +28,8 @@ namespace Breakout
 
             var model = Matrix4.Identity;
             model = Matrix4.CreateTranslation(new Vector3(position.X, position.Y, 0)) * model;
-            /*model = glm::translate(model, glm::vec3(position, 0.0f));  // first translate (transformations are: scale happens first, then rotation, and then final translation happens; reversed order)
-            */
+            //model = glm::translate(model, glm::vec3(position, 0.0f));  // first translate (transformations are: scale happens first, then rotation, and then final translation happens; reversed order)
+
             model = Matrix4.CreateTranslation(new Vector3(0.5f * size.X, 0.5f * size.Y, 0)) * model;
             //model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f)); // move origin of rotation to center of quad
             model = Matrix4.CreateFromAxisAngle(new Vector3(0.0f, 0.0f, 1), (float)(rotate * Math.PI / 180f)) * model;
@@ -38,6 +39,7 @@ namespace Breakout
             model = Matrix4.CreateTranslation(new Vector3(-0.5f * size.X, -0.5f * size.Y, 0)) * model;
 
             //model = glm::scale(model, glm::vec3(size, 1.0f)); // last scale
+
             model = Matrix4.CreateScale(new Vector3(size.X, size.Y, 1)) * model;
 
             shader.SetMatrix4("model", model);
