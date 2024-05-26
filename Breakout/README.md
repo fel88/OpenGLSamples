@@ -1,6 +1,6 @@
-# Asteroid field (Instancing)
+# Breakout
 
-https://learnopengl.com/Advanced-OpenGL/Instancing
+https://learnopengl.com/In-Practice/2D-Game/Breakout
+
 ![](img.jpg)
 
-![](img2.jpg)
