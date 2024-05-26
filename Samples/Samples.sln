@@ -39,6 +39,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GeometryShader", "GeometryS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breakout", "..\Breakout\Breakout.csproj", "{47E3C50B-EB4D-45FF-8EEE-CF4180E7110B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GettingStarted", "GettingStarted", "{33F0DB3B-0880-4878-91B0-AD66ADC35858}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformations", "GettingStarted\Transformations\Transformations.csproj", "{5F24C9F8-2AEB-4B25-82B5-DE0EEEA9D44F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +93,10 @@ Global
 		{47E3C50B-EB4D-45FF-8EEE-CF4180E7110B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47E3C50B-EB4D-45FF-8EEE-CF4180E7110B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47E3C50B-EB4D-45FF-8EEE-CF4180E7110B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F24C9F8-2AEB-4B25-82B5-DE0EEEA9D44F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F24C9F8-2AEB-4B25-82B5-DE0EEEA9D44F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F24C9F8-2AEB-4B25-82B5-DE0EEEA9D44F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F24C9F8-2AEB-4B25-82B5-DE0EEEA9D44F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +115,7 @@ Global
 		{5D9367B3-D4C7-4C09-98E1-D04FAA261FDB} = {F00D87D9-32B4-44CA-A35D-BBA3A6CC5D2B}
 		{F00D87D9-32B4-44CA-A35D-BBA3A6CC5D2B} = {734F3792-DE54-4A75-8B94-C7A9F2841B9E}
 		{47E3C50B-EB4D-45FF-8EEE-CF4180E7110B} = {5466BCEB-E668-41E7-A5F2-40ECBBDA2578}
+		{5F24C9F8-2AEB-4B25-82B5-DE0EEEA9D44F} = {33F0DB3B-0880-4878-91B0-AD66ADC35858}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47BA7212-91C4-469F-9BD4-7F2E8CF459FB}
