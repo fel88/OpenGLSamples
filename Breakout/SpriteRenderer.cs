@@ -21,7 +21,7 @@ namespace Breakout
 
         // Renders a defined quad textured with given sprite
 
-        public void DrawSprite(Texture2D texture, Vector2 position, Vector2 size, float rotate, Vector3 color)
+        public void DrawSprite(Texture2D texture, Vector2 position, Vector2 size, float rotate, Vector3? color=null)
         {
             // prepare transformations
             shader.use();
@@ -43,9 +43,11 @@ namespace Breakout
             model = Matrix4.CreateScale(new Vector3(size.X, size.Y, 1)) * model;
 
             shader.SetMatrix4("model", model);
-
-            // render textured quad
-            shader.SetVector3f("spriteColor", color);
+            if (color != null)
+            {
+                // render textured quad
+                shader.SetVector3f("spriteColor", color.Value);
+            }
 
             GL.ActiveTexture(TextureUnit.Texture0);
             texture.Bind();
@@ -91,6 +93,8 @@ namespace Breakout
         {
             GL.DeleteVertexArrays(1, new[] { this.quadVAO });
         }
+
+        
     }
 
 }

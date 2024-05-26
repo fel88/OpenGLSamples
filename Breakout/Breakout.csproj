@@ -56,6 +56,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
+    <Compile Include="GameLevel.cs" />
+    <Compile Include="GameObject.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +103,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="levels\one.lvl" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="textures\background.jpg" />
+    <EmbeddedResource Include="textures\block.png" />
+    <EmbeddedResource Include="textures\block_solid.png" />
+    <EmbeddedResource Include="textures\paddle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

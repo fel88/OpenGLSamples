@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-
 namespace Breakout
 {
     public partial class Form1 : Form
@@ -14,12 +13,11 @@ namespace Breakout
             
             
         }
-
         
         // timing
         float deltaTime = 0.0f;
         float lastFrame = 0.0f;
-        DateTime startTime = new DateTime();
+        DateTime startTime =  DateTime.Now;
         float glfwGetTime()
         {
             return (float)DateTime.Now.Subtract(startTime).TotalSeconds;
@@ -187,6 +185,5 @@ namespace Breakout
             glControl.Invalidate();
         }
     }
-
-}
+    }
 
