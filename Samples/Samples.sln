@@ -31,6 +31,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsteroidField", "Advanced_O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsteroidField_Slow", "Advanced_OpenGL\Instancing\AsteroidField_Slow\AsteroidField_Slow.csproj", "{4FE18AEE-BA23-4D6A-9123-93BF0ABF82C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometryShader1", "Advanced_OpenGL\Geometry_Shader\GeometryShader1.csproj", "{5D9367B3-D4C7-4C09-98E1-D04FAA261FDB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Breakout", "Breakout", "{5466BCEB-E668-41E7-A5F2-40ECBBDA2578}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GeometryShader", "GeometryShader", "{F00D87D9-32B4-44CA-A35D-BBA3A6CC5D2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +79,10 @@ Global
 		{4FE18AEE-BA23-4D6A-9123-93BF0ABF82C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FE18AEE-BA23-4D6A-9123-93BF0ABF82C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FE18AEE-BA23-4D6A-9123-93BF0ABF82C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D9367B3-D4C7-4C09-98E1-D04FAA261FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D9367B3-D4C7-4C09-98E1-D04FAA261FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D9367B3-D4C7-4C09-98E1-D04FAA261FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D9367B3-D4C7-4C09-98E1-D04FAA261FDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +98,8 @@ Global
 		{6C4B3809-C7E0-4389-A31B-ADD9E8B0587D} = {5B8141BA-21C3-4EC8-A2FD-E66E739CFFE7}
 		{0F56BDD9-C3C5-4CB8-A507-294435834610} = {5B8141BA-21C3-4EC8-A2FD-E66E739CFFE7}
 		{4FE18AEE-BA23-4D6A-9123-93BF0ABF82C8} = {5B8141BA-21C3-4EC8-A2FD-E66E739CFFE7}
+		{5D9367B3-D4C7-4C09-98E1-D04FAA261FDB} = {F00D87D9-32B4-44CA-A35D-BBA3A6CC5D2B}
+		{F00D87D9-32B4-44CA-A35D-BBA3A6CC5D2B} = {734F3792-DE54-4A75-8B94-C7A9F2841B9E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47BA7212-91C4-469F-9BD4-7F2E8CF459FB}
