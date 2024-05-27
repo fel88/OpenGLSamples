@@ -27,7 +27,7 @@ namespace Breakout
         const float BALL_RADIUS = 12.5f;
 
         BallObject Ball;
-
+        ParticleGenerator Particles;
         // constructor/destructor
         public Game(int width, int height)
         {
@@ -142,7 +142,7 @@ namespace Breakout
                         if (dir == Direction.LEFT || dir == Direction.RIGHT) // horizontal collision
                         {
                             Ball.Velocity.X = -Ball.Velocity.X; // reverse horizontal velocity
-                                                                  // relocate
+                                                                // relocate
                             float penetration = Ball.Radius - Math.Abs(diff_vector.X);
                             if (dir == Direction.LEFT)
                                 Ball.Position.X += penetration; // move ball to right
@@ -152,9 +152,9 @@ namespace Breakout
                         else // vertical collision
                         {
                             Ball.Velocity.Y = -Ball.Velocity.Y; // reverse vertical velocity
-                                                                  // relocate
+                                                                // relocate
                             float penetration = Ball.Radius - Math.Abs(diff_vector.Y);
-                            if (dir == Direction.UP )
+                            if (dir == Direction.UP)
                                 Ball.Position.Y -= penetration; // move ball back up
                             else
                                 Ball.Position.Y += penetration; // move ball back down
@@ -162,6 +162,7 @@ namespace Breakout
                     }
                 }
             }
+            // check collisions for player pad (unless stuck)
             Collision result = CheckCollision(Ball, Player);
             if (!Ball.Stuck && result.Fired)
             {
@@ -173,23 +174,28 @@ namespace Breakout
                 float strength = 2.0f;
                 Vector2 oldVelocity = Ball.Velocity;
                 Ball.Velocity.X = INITIAL_BALL_VELOCITY.X * percentage * strength;
-                Ball.Velocity.Y = -Ball.Velocity.Y;
-                Ball.Velocity = (Ball.Velocity.Normalized()) * (oldVelocity.Length);
+                Ball.Velocity = (Ball.Velocity.Normalized()) * (oldVelocity.Length); // keep speed consistent over both axes (multiply by length of old velocity, so total strength is not changed)                                                                                            // fix sticky paddle
+                Ball.Velocity.Y = -1.0f * Math.Abs(Ball.Velocity.Y);
+                //Ball.Velocity.Y = -Ball.Velocity.Y;
+                //Ball.Velocity = (Ball.Velocity.Normalized()) * (oldVelocity.Length);
             }
         }
         // initialize game state (load all shaders/textures/levels)
         public void Init()
         {
-
             // load shaders
             ResourceManager.LoadShader("sprite.vs", "sprite.frag", null, "sprite");
+            ResourceManager.LoadShader("particle.vs", "particle.frag", null, "particle");
             // configure shaders
             var projection = Matrix4.CreateOrthographicOffCenter(0, (float)(Width),
-                    (float)(Height), 0, -1.0f, 1.0f);
+                    (float)(Height), 0, -1.0f, 1.0f);           
+            
             ResourceManager.GetShader("sprite").use().SetInteger("image", 0);
             ResourceManager.GetShader("sprite").SetMatrix4("projection", projection);
-            // set render-specific controls
-            Renderer = new SpriteRenderer(ResourceManager.GetShader("sprite"));
+            ResourceManager.GetShader("particle").use().SetInteger("sprite", 0);
+            ResourceManager.GetShader("particle").SetMatrix4("projection", projection);
+
+
             // load textures
 
             ResourceManager.LoadTexture("background.jpg", false, "background");
@@ -197,7 +203,10 @@ namespace Breakout
             ResourceManager.LoadTexture("block.png", false, "block");
             ResourceManager.LoadTexture("block_solid.png", false, "block_solid");
             ResourceManager.LoadTexture("paddle.png", true, "paddle");
-
+            ResourceManager.LoadTexture("particle.png", true, "particle");
+            // set render-specific controls
+            Renderer = new SpriteRenderer(ResourceManager.GetShader("sprite"));
+            Particles = new ParticleGenerator(ResourceManager.GetShader("particle"), ResourceManager.GetTexture("particle"), 500);
             // load levels
             GameLevel one = new GameLevel(); one.Load("one.lvl", Width, Height / 2);
             /*GameLevel two; two.Load("levels/two.lvl", this->Width, this->Height / 2);
@@ -269,7 +278,7 @@ namespace Breakout
         {
             // reset player/ball stats
             Player.Size = PLAYER_SIZE;
-            Player.Position = new Vector2(Width / 2.0f - PLAYER_SIZE.X / 2.0f, Height - PLAYER_SIZE.Y   );
+            Player.Position = new Vector2(Width / 2.0f - PLAYER_SIZE.X / 2.0f, Height - PLAYER_SIZE.Y);
             Ball.Reset(Player.Position + new Vector2(PLAYER_SIZE.X / 2.0f - BALL_RADIUS, -(BALL_RADIUS * 2.0f)), INITIAL_BALL_VELOCITY);
         }
         public void Update(float dt)
@@ -278,6 +287,9 @@ namespace Breakout
             Ball.Move(dt, Width);
             // check for collisions
             DoCollisions();
+            // update particles
+            Particles.Update(dt, Ball, 2, new Vector2(Ball.Radius / 2.0f));
+            // check loss condition            
             if (Ball.Position.Y >= Height) // did ball reach bottom edge?
             {
                 ResetLevel();
@@ -296,11 +308,12 @@ namespace Breakout
             Levels[Level].Draw(Renderer);
             // draw player
             Player.Draw(Renderer);
-            Ball.Draw(Renderer);
 
+            // draw particles	
+            Particles.Draw();
+            // draw ball
+            Ball.Draw(Renderer);
         }
     }
-
-
 }
 

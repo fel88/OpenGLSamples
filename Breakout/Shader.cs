@@ -86,6 +86,14 @@ namespace Breakout
         {
             GL.Uniform3(GL.GetUniformLocation(ID, v), ref newPos);
         }
+        internal void setVec4(string v, Vector4 newPos)
+        {
+            GL.Uniform4(GL.GetUniformLocation(ID, v), ref newPos);
+        }
+        internal void setVec2(string v, Vector2 newPos)
+        {
+            GL.Uniform2(GL.GetUniformLocation(ID, v), ref newPos);
+        }
 
         internal Shader use()
         {
@@ -108,6 +116,16 @@ namespace Breakout
         internal void SetInteger(string v1, int v2)
         {
             setInt(v1, v2);
+        }
+
+        internal void SetVector2f(string v, Vector2 position)
+        {
+            setVec2(v, position);
+        }
+
+        internal void SetVector4f(string v, Vector4 color)
+        {
+            setVec4(v, color);
         }
     }
 }

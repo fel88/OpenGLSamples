@@ -10,14 +10,14 @@ namespace Breakout
     {
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-            
+
+
         }
-        
+
         // timing
         float deltaTime = 0.0f;
         float lastFrame = 0.0f;
-        DateTime startTime =  DateTime.Now;
+        DateTime startTime = DateTime.Now;
         float glfwGetTime()
         {
             return (float)DateTime.Now.Subtract(startTime).TotalSeconds;
@@ -64,9 +64,9 @@ namespace Breakout
         public Form1()
         {
             InitializeComponent();
-            
+
             glControl = new OpenTK.GLControl(new OpenTK.Graphics.GraphicsMode(32, 24, 0, 4), 3, 3, OpenTK.Graphics.GraphicsContextFlags.Default);
-            
+
             glControl.Paint += Gl_Paint;
             Controls.Add(glControl);
             glControl.Dock = DockStyle.Fill;
@@ -84,12 +84,12 @@ namespace Breakout
         }
 
         GLControl glControl;
-        
+
 
         bool first = true;
 
-        
-        
+
+
         Random random;
 
         // The Width of the screen
@@ -100,7 +100,7 @@ namespace Breakout
         Game Breakout = new Game(SCREEN_WIDTH, SCREEN_HEIGHT);
         void init()
         {
-            
+
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
@@ -154,7 +154,7 @@ namespace Breakout
 
         Camera camera = new Camera(new Vector3(0.0f, 0, 155));
         void Redraw()
-        {            
+        {
             var currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
             lastFrame = currentFrame;
@@ -169,7 +169,7 @@ namespace Breakout
 
 
             GL.ClearColor(0.0f, 0.0f, 0.0f, 1f);
-            GL.Clear(ClearBufferMask.ColorBufferBit);            
+            GL.Clear(ClearBufferMask.ColorBufferBit);
 
             // render
             // ------
@@ -185,5 +185,5 @@ namespace Breakout
             glControl.Invalidate();
         }
     }
-    }
+}
 

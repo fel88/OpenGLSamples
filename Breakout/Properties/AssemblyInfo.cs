@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NormalMapping")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Breakout")]
+[assembly: AssemblyDescription("https://learnopengl.com/In-Practice/2D-Game/Breakout")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("https://github.com/fel88")]
-[assembly: AssemblyProduct("NormalMapping")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyProduct("Breakout")]
+[assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
