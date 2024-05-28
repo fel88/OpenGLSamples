@@ -64,6 +64,7 @@
     <Compile Include="Particle.cs" />
     <Compile Include="ParticleGenerator.cs" />
     <Compile Include="PostProcessor.cs" />
+    <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceManager.cs" />
@@ -85,6 +86,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="levels\two.lvl" />
+    <EmbeddedResource Include="levels\three.lvl" />
+    <EmbeddedResource Include="levels\four.lvl" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -100,6 +104,7 @@
     <EmbeddedResource Include="shaders\particle.vs" />
     <EmbeddedResource Include="shaders\post_processing.frag" />
     <EmbeddedResource Include="shaders\post_processing.vs" />
+    <EmbeddedResource Include="textures\one.lvl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -124,6 +129,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="textures\particle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="textures\powerup_chaos.png" />
+    <EmbeddedResource Include="textures\powerup_confuse.png" />
+    <EmbeddedResource Include="textures\powerup_increase.png" />
+    <EmbeddedResource Include="textures\powerup_passthrough.png" />
+    <EmbeddedResource Include="textures\powerup_speed.png" />
+    <EmbeddedResource Include="textures\powerup_sticky.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

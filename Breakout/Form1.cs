@@ -86,7 +86,6 @@ namespace Breakout
 
 
 
-        Random random;
 
         // The Width of the screen
         const int SCREEN_WIDTH = 800;
@@ -111,10 +110,7 @@ namespace Breakout
 
 
 
-        private int rand()
-        {
-            return random.Next();
-        }
+    
 
 
         double lastFps = 0;

@@ -24,6 +24,9 @@ namespace Breakout
             Stuck = (true);
         }
 
+        public bool PassThrough { get; internal set; }
+        public bool Sticky { get; internal set; }
+
         // moves the ball, keeping it constrained within the window bounds (except bottom edge); returns new position
         public Vector2 Move(float dt, int window_width)
         {

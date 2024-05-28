@@ -1,6 +1,8 @@
 ﻿using OpenTK;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Security.Cryptography;
 
 namespace Breakout
 {
@@ -9,7 +11,6 @@ namespace Breakout
     // easy access to each of the components and manageability.
     public class Game
     {
-
 
         // game state
         public GameState State;
@@ -28,7 +29,7 @@ namespace Breakout
         BallObject Ball;
         ParticleGenerator Particles;
         PostProcessor Effects;
-
+        List<PowerUp> PowerUps = new List<PowerUp>();
         float ShakeTime = 0.0f;
 
 
@@ -141,6 +142,7 @@ namespace Breakout
                         if (!box.IsSolid)
                         {
                             box.Destroyed = true;
+                            SpawnPowerUps(box);
                         }
                         else
                         {
@@ -151,29 +153,52 @@ namespace Breakout
                         // collision resolution
                         Direction dir = collision.Direction;
                         var diff_vector = (collision).Diff;
-                        if (dir == Direction.LEFT || dir == Direction.RIGHT) // horizontal collision
+
+                        if (!(Ball.PassThrough && !box.IsSolid)) // don't do collision resolution on non-solid bricks if pass-through is activated
                         {
-                            Ball.Velocity.X = -Ball.Velocity.X; // reverse horizontal velocity
-                                                                // relocate
-                            float penetration = Ball.Radius - Math.Abs(diff_vector.X);
-                            if (dir == Direction.LEFT)
-                                Ball.Position.X += penetration; // move ball to right
-                            else
-                                Ball.Position.X -= penetration; // move ball to left;
-                        }
-                        else // vertical collision
-                        {
-                            Ball.Velocity.Y = -Ball.Velocity.Y; // reverse vertical velocity
-                                                                // relocate
-                            float penetration = Ball.Radius - Math.Abs(diff_vector.Y);
-                            if (dir == Direction.UP)
-                                Ball.Position.Y -= penetration; // move ball back up
-                            else
-                                Ball.Position.Y += penetration; // move ball back down
+                            if (dir == Direction.LEFT || dir == Direction.RIGHT) // horizontal collision
+                            {
+                                Ball.Velocity.X = -Ball.Velocity.X; // reverse horizontal velocity
+                                                                    // relocate
+                                float penetration = Ball.Radius - Math.Abs(diff_vector.X);
+                                if (dir == Direction.LEFT)
+                                    Ball.Position.X += penetration; // move ball to right
+                                else
+                                    Ball.Position.X -= penetration; // move ball to left;
+                            }
+                            else // vertical collision
+                            {
+                                Ball.Velocity.Y = -Ball.Velocity.Y; // reverse vertical velocity
+                                                                    // relocate
+                                float penetration = Ball.Radius - Math.Abs(diff_vector.Y);
+                                if (dir == Direction.UP)
+                                    Ball.Position.Y -= penetration; // move ball back up
+                                else
+                                    Ball.Position.Y += penetration; // move ball back down
+                            }
                         }
                     }
                 }
             }
+
+            // also check collisions on PowerUps and if so, activate them
+            foreach (var powerUp in PowerUps)
+            {
+                if (!powerUp.Destroyed)
+                {
+                    // first check if powerup passed bottom edge, if so: keep as inactive and destroy
+                    if (powerUp.Position.Y >= Height)
+                        powerUp.Destroyed = true;
+
+                    if (CheckCollision(Player, powerUp))
+                    {   // collided with player, now activate powerup
+                        ActivatePowerUp(powerUp);
+                        powerUp.Destroyed = true;
+                        powerUp.Activated = true;
+                    }
+                }
+            }
+
             // check collisions for player pad (unless stuck)
             Collision result = CheckCollision(Ball, Player);
             if (!Ball.Stuck && result.Fired)
@@ -192,6 +217,39 @@ namespace Breakout
                 //Ball.Velocity = (Ball.Velocity.Normalized()) * (oldVelocity.Length);
             }
         }
+        void ActivatePowerUp(PowerUp powerUp)
+        {
+            if (powerUp.Type == "speed")
+            {
+                Ball.Velocity *= 1.2f;
+            }
+            else if (powerUp.Type == "sticky")
+            {
+                Ball.Sticky = true;
+                Player.Color = new Vector3(1.0f, 0.5f, 1.0f);
+            }
+            else if (powerUp.Type == "pass-through")
+            {
+                Ball.PassThrough = true;
+                Ball.Color = new Vector3(1.0f, 0.5f, 0.5f);
+            }
+            else if (powerUp.Type == "pad-size-increase")
+            {
+                Player.Size.X += 50;
+            }
+            else if (powerUp.Type == "confuse")
+            {
+                if (!Effects.Chaos)
+                    Effects.Confuse = true; // only activate if chaos wasn't already active
+            }
+            else if (powerUp.Type == "chaos")
+            {
+                if (!Effects.Confuse)
+                    Effects.Chaos = true;
+            }
+        }
+
+
         // initialize game state (load all shaders/textures/levels)
         public void Init()
         {
@@ -217,6 +275,15 @@ namespace Breakout
             ResourceManager.LoadTexture("block_solid.png", false, "block_solid");
             ResourceManager.LoadTexture("paddle.png", true, "paddle");
             ResourceManager.LoadTexture("particle.png", true, "particle");
+
+            ResourceManager.LoadTexture("powerup_speed.png", true, "powerup_speed");
+            ResourceManager.LoadTexture("powerup_sticky.png", true, "powerup_sticky");
+            ResourceManager.LoadTexture("powerup_increase.png", true, "powerup_increase");
+            ResourceManager.LoadTexture("powerup_confuse.png", true, "powerup_confuse");
+            ResourceManager.LoadTexture("powerup_chaos.png", true, "powerup_chaos");
+            ResourceManager.LoadTexture("powerup_passthrough.png", true, "powerup_passthrough");
+            // set render-specific controls
+
             // set render-specific controls
             Renderer = new SpriteRenderer(ResourceManager.GetShader("sprite"));
             Particles = new ParticleGenerator(ResourceManager.GetShader("particle"), ResourceManager.GetTexture("particle"), 500);
@@ -293,6 +360,11 @@ namespace Breakout
             Player.Size = PLAYER_SIZE;
             Player.Position = new Vector2(Width / 2.0f - PLAYER_SIZE.X / 2.0f, Height - PLAYER_SIZE.Y);
             Ball.Reset(Player.Position + new Vector2(PLAYER_SIZE.X / 2.0f - BALL_RADIUS, -(BALL_RADIUS * 2.0f)), INITIAL_BALL_VELOCITY);
+            // also disable all active powerups
+            Effects.Chaos = Effects.Confuse = false;
+            Ball.PassThrough = Ball.Sticky = false;
+            Player.Color = new Vector3(1.0f);
+            Ball.Color = new Vector3(1.0f);
         }
 
         public void Update(float dt)
@@ -303,7 +375,8 @@ namespace Breakout
             DoCollisions();
             // update particles
             Particles.Update(dt, Ball, 2, new Vector2(Ball.Radius / 2.0f));
-
+            // update PowerUps
+            UpdatePowerUps(dt);
 
             if (ShakeTime > 0.0f)
             {
@@ -321,9 +394,96 @@ namespace Breakout
 
         }
 
+
+        void UpdatePowerUps(float dt)
+        {
+            foreach (var powerUp in PowerUps)
+            {
+                powerUp.Position += powerUp.Velocity * dt;
+                if (powerUp.Activated)
+                {
+                    powerUp.Duration -= dt;
+
+                    if (powerUp.Duration <= 0.0f)
+                    {
+                        // remove powerup from list (will later be removed)
+                        powerUp.Activated = false;
+                        // deactivate effects
+                        if (powerUp.Type == "sticky")
+                        {
+                            if (!IsOtherPowerUpActive(PowerUps, "sticky"))
+                            {   // only reset if no other PowerUp of type sticky is active
+                                Ball.Sticky = false;
+                                Player.Color = new Vector3(1.0f);
+                            }
+                        }
+                        else if (powerUp.Type == "pass-through")
+                        {
+                            if (!IsOtherPowerUpActive(PowerUps, "pass-through"))
+                            {   // only reset if no other PowerUp of type pass-through is active
+                                Ball.PassThrough = false;
+                                Ball.Color = new Vector3(1.0f);
+                            }
+                        }
+                        else if (powerUp.Type == "confuse")
+                        {
+                            if (!IsOtherPowerUpActive(PowerUps, "confuse"))
+                            {   // only reset if no other PowerUp of type confuse is active
+                                Effects.Confuse = false;
+                            }
+                        }
+                        else if (powerUp.Type == "chaos")
+                        {
+                            if (!IsOtherPowerUpActive(PowerUps, "chaos"))
+                            {   // only reset if no other PowerUp of type chaos is active
+                                Effects.Chaos = false;
+                            }
+                        }
+                    }
+                }
+            }
+            // Remove all PowerUps from vector that are destroyed AND !activated (thus either off the map or finished)
+            // Note we use a lambda expression to remove each PowerUp which is destroyed and not activated
+            PowerUps.RemoveAll(z => z.Destroyed && !z.Activated);
+        }
+
+        private bool IsOtherPowerUpActive(List<PowerUp> powerUps, string type)
+        {
+            // Check if another PowerUp of the same type is still active
+            // in which case we don't disable its effect (yet)
+            foreach (var powerUp in powerUps)
+            {
+                if (powerUp.Activated)
+                    if (powerUp.Type == type)
+                        return true;
+            }
+            return false;
+        }
+
+        bool ShouldSpawn(int chance)
+        {
+            int random = GLHelpers.rand() % chance;
+            return random == 0;
+        }
+        void SpawnPowerUps(GameObject block)
+        {
+            if (ShouldSpawn(75)) // 1 in 75 chance
+                PowerUps.Add(new PowerUp("speed", new Vector3(0.5f, 0.5f, 1.0f), 0.0f, block.Position, ResourceManager.GetTexture("powerup_speed")));
+            if (ShouldSpawn(75))
+                PowerUps.Add(new PowerUp("sticky", new Vector3(1.0f, 0.5f, 1.0f), 20.0f, block.Position, ResourceManager.GetTexture("powerup_sticky")));
+            if (ShouldSpawn(75))
+                PowerUps.Add(new PowerUp("pass-through", new Vector3(0.5f, 1.0f, 0.5f), 10.0f, block.Position, ResourceManager.GetTexture("powerup_passthrough")));
+            if (ShouldSpawn(75))
+                PowerUps.Add(new PowerUp("pad-size-increase", new Vector3(1.0f, 0.6f, 0.4f), 0.0f, block.Position, ResourceManager.GetTexture("powerup_increase")));
+            if (ShouldSpawn(15)) // Negative powerups should spawn more often
+                PowerUps.Add(new PowerUp("confuse", new Vector3(1.0f, 0.3f, 0.3f), 15.0f, block.Position, ResourceManager.GetTexture("powerup_confuse")));
+            if (ShouldSpawn(15))
+                PowerUps.Add(new PowerUp("chaos", new Vector3(0.9f, 0.25f, 0.25f), 15.0f, block.Position, ResourceManager.GetTexture("powerup_chaos")));
+        }
+
         public void Render()
         {
-            if (State != GameState.GAME_ACTIVE) 
+            if (State != GameState.GAME_ACTIVE)
                 return;
 
             Effects.BeginRender();
@@ -334,6 +494,10 @@ namespace Breakout
             Levels[Level].Draw(Renderer);
             // draw player
             Player.Draw(Renderer);
+            // draw PowerUps
+            foreach (var powerUp in PowerUps)
+                if (!powerUp.Destroyed)
+                    powerUp.Draw(Renderer);
 
             // draw particles	
             Particles.Draw();

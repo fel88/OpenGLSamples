@@ -16,7 +16,7 @@ namespace Breakout
         public bool IsSolid;
         public bool Destroyed;
         // render state
-        Texture2D Sprite;
+        protected readonly Texture2D Sprite;
         
 
 
@@ -42,7 +42,14 @@ namespace Breakout
             Color = new Vector3(1);
             Velocity = new Vector2(0, 0);
         }
-
+        public GameObject(Vector2 playerPos,  Texture2D texture2D)
+        {
+            Position = playerPos;
+            
+            Sprite = texture2D;
+            Color = new Vector3(1);
+            Velocity = new Vector2(0, 0);
+        }
         public GameObject(Vector2 playerPos, Vector2 pLAYER_SIZE, Texture2D texture2D, Vector3 color) : this(playerPos, pLAYER_SIZE, texture2D)
         {
             Color = color;

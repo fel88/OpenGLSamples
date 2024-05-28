@@ -132,11 +132,10 @@ namespace Breakout
             lastUsedParticle = 0;
             return 0;
         }
-        Random random = new Random(Guid.NewGuid().GetHashCode());
-
+        
         private int rand()
         {
-            return random.Next();
+            return GLHelpers.rand();
         }
         // respawns particle
         void respawnParticle(Particle particle, GameObject _object, Vector2? offset = null)
