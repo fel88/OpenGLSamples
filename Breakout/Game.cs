@@ -326,7 +326,7 @@ namespace Breakout
             if (State != GameState.GAME_ACTIVE) 
                 return;
 
-            //Effects.BeginRender();
+            Effects.BeginRender();
             // draw background
             Renderer.DrawSprite(ResourceManager.GetTexture("background"),
                 new Vector2(0.0f, 0.0f), new Vector2(Width, Height), 0.0f);
@@ -340,7 +340,7 @@ namespace Breakout
             // draw ball
             Ball.Draw(Renderer);
 
-           // Effects.EndRender();
+            Effects.EndRender();
             Effects.Render(GLHelpers.glfwGetTime());
         }
     }

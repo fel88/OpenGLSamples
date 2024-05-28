@@ -38,7 +38,7 @@ namespace Breakout
         // generates texture from image data
         public void Generate(int width, int height, byte[] data)
         {
-            /*Width = width;
+            Width = width;
             Height = height;
             // create Texture
             GL.BindTexture(TextureTarget.Texture2D, ID);
@@ -52,7 +52,7 @@ namespace Breakout
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)Wrap_T);
 
             // unbind texture
-            GL.BindTexture(TextureTarget.Texture2D, 0);*/
+            GL.BindTexture(TextureTarget.Texture2D, 0);
         }
         public int Load(Bitmap bitmap)
         {
