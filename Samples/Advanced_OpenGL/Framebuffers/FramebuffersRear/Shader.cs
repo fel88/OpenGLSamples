@@ -1,11 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Reflection;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace Breakout
+namespace Skybox
 {
     public class Shader
     {
@@ -21,13 +20,13 @@ namespace Breakout
             }
         }
 
-        public Shader(string vShaderFile, string fShaderFile)
+        public Shader(string v1, string v2)
         {
             // 2. compile shaders
             int vertex, fragment;
             // vertex shader
-            string vShaderCode = ReadResourceTxt(vShaderFile);
-            string fShaderCode = ReadResourceTxt(fShaderFile);
+            string vShaderCode = ReadResourceTxt(v1);
+            string fShaderCode = ReadResourceTxt(v2);
             vertex = GL.CreateShader(ShaderType.VertexShader);
 
             GL.ShaderSource(vertex, vShaderCode);
@@ -48,7 +47,7 @@ namespace Breakout
             GL.DeleteShader(vertex);
             GL.DeleteShader(fragment);
         }
-        public readonly int ID;
+        int ID;
         void checkCompileErrors(int shader, string type)
         {
             int success;
@@ -86,58 +85,10 @@ namespace Breakout
         {
             GL.Uniform3(GL.GetUniformLocation(ID, v), ref newPos);
         }
-        internal void setVec4(string v, Vector4 newPos)
-        {
-            GL.Uniform4(GL.GetUniformLocation(ID, v), ref newPos);
-        }
-        internal void setVec2(string v, Vector2 newPos)
-        {
-            GL.Uniform2(GL.GetUniformLocation(ID, v), ref newPos);
-        }
 
-        internal Shader use()
+        internal void use()
         {
             GL.UseProgram(ID);
-            return this;
-        }
-
-        internal void SetVector3f(string v, Vector3 color)
-        {
-            setVec3(v, color);
-        }
-
-        internal void SetMatrix4(string v, Matrix4 projection, bool useShader = false)
-        {
-            if (useShader)
-                use();
-            setMat4(v, projection);
-        }
-
-        internal void SetInteger(string v1, int v2, bool useShader = false)
-        {
-            if (useShader)
-                use();
-            setInt(v1, v2);
-        }
-
-        internal void SetVector2f(string v, Vector2 position)
-        {
-            setVec2(v, position);
-        }
-
-        internal void SetVector4f(string v, Vector4 color)
-        {
-            setVec4(v, color);
-        }
-
-        internal void SetInteger(string v, bool chaos, bool useShader = false)
-        {
-            SetInteger(v, chaos ? 1 : 0, useShader);
-        }
-
-        internal void SetFloat(string v, float time)
-        {
-            GL.Uniform1(GL.GetUniformLocation(ID, v), time); 
         }
     }
 }

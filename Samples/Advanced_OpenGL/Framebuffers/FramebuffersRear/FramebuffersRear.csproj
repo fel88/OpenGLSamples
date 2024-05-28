@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{47E3C50B-EB4D-45FF-8EEE-CF4180E7110B}</ProjectGuid>
+    <ProjectGuid>{FAF014DF-ED40-4A91-B775-BEF0F18B4E9F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Breakout</RootNamespace>
-    <AssemblyName>Breakout</AssemblyName>
+    <RootNamespace>FramebuffersRear</RootNamespace>
+    <AssemblyName>FramebuffersRear</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -35,7 +35,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BallObject.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Camera_Movement.cs" />
     <Compile Include="Form1.cs">
@@ -56,22 +54,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Game.cs" />
-    <Compile Include="GameLevel.cs" />
-    <Compile Include="GameObject.cs" />
-    <Compile Include="GameState.cs" />
-    <Compile Include="GLHelpers.cs" />
-    <Compile Include="Particle.cs" />
-    <Compile Include="ParticleGenerator.cs" />
-    <Compile Include="PostProcessor.cs" />
+    <Compile Include="MessageFilter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceManager.cs" />
-    <Compile Include="ResourcesHelper.cs" />
     <Compile Include="Shader.cs" />
-    <Compile Include="SpriteRenderer.cs" />
-    <Compile Include="StaticHelpers.cs" />
-    <Compile Include="Texture2D.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -94,36 +80,27 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="shaders\sprite.frag" />
+    <EmbeddedResource Include="shaders\5.2.framebuffers_screen.fs" />
+    <EmbeddedResource Include="shaders\5.2.framebuffers_screen.vs" />
+    <EmbeddedResource Include="shaders\5.2.framebuffers.fs" />
     <None Include="README.md" />
-    <EmbeddedResource Include="shaders\particle.frag" />
-    <EmbeddedResource Include="shaders\particle.vs" />
-    <EmbeddedResource Include="shaders\post_processing.frag" />
-    <EmbeddedResource Include="shaders\post_processing.vs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="shaders\sprite.vs" />
+    <EmbeddedResource Include="shaders\5.2.framebuffers.vs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="textures\awesomeface.png" />
+    <EmbeddedResource Include="textures\container.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="models\" />
+    <PackageReference Include="OpenTK.GLControl">
+      <Version>3.1.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="levels\one.lvl" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="textures\background.jpg" />
-    <EmbeddedResource Include="textures\block.png" />
-    <EmbeddedResource Include="textures\block_solid.png" />
-    <EmbeddedResource Include="textures\paddle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="textures\particle.png" />
+    <EmbeddedResource Include="textures\metal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

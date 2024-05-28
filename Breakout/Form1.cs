@@ -17,11 +17,7 @@ namespace Breakout
         // timing
         float deltaTime = 0.0f;
         float lastFrame = 0.0f;
-        DateTime startTime = DateTime.Now;
-        float glfwGetTime()
-        {
-            return (float)DateTime.Now.Subtract(startTime).TotalSeconds;
-        }
+        
         const int WM_KEYDOWN = 0x100;
         const int WM_KEYUP = 0x101;
 
@@ -155,7 +151,7 @@ namespace Breakout
         Camera camera = new Camera(new Vector3(0.0f, 0, 155));
         void Redraw()
         {
-            var currentFrame = glfwGetTime();
+            var currentFrame = GLHelpers.glfwGetTime();
             deltaTime = currentFrame - lastFrame;
             lastFrame = currentFrame;
 

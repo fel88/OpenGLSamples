@@ -1,9 +1,6 @@
 ﻿using OpenTK;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Windows.Forms;
 
 namespace Breakout
 {
@@ -12,8 +9,7 @@ namespace Breakout
     // easy access to each of the components and manageability.
     public class Game
     {
-        SpriteRenderer Renderer;
-        GameObject Player;
+
 
         // game state
         public GameState State;
@@ -26,8 +22,16 @@ namespace Breakout
         // Radius of the ball object
         const float BALL_RADIUS = 12.5f;
 
+        // Game-related State data
+        SpriteRenderer Renderer;
+        GameObject Player;
         BallObject Ball;
         ParticleGenerator Particles;
+        PostProcessor Effects;
+
+        float ShakeTime = 0.0f;
+
+
         // constructor/destructor
         public Game(int width, int height)
         {
@@ -135,7 +139,15 @@ namespace Breakout
                     {
                         // destroy block if not solid
                         if (!box.IsSolid)
+                        {
                             box.Destroyed = true;
+                        }
+                        else
+                        {
+                            // if block is solid, enable shake effect
+                            ShakeTime = 0.05f;
+                            Effects.Shake = true;
+                        }
                         // collision resolution
                         Direction dir = collision.Direction;
                         var diff_vector = (collision).Diff;
@@ -186,10 +198,11 @@ namespace Breakout
             // load shaders
             ResourceManager.LoadShader("sprite.vs", "sprite.frag", null, "sprite");
             ResourceManager.LoadShader("particle.vs", "particle.frag", null, "particle");
+            ResourceManager.LoadShader("post_processing.vs", "post_processing.frag", null, "postprocessing");
             // configure shaders
             var projection = Matrix4.CreateOrthographicOffCenter(0, (float)(Width),
-                    (float)(Height), 0, -1.0f, 1.0f);           
-            
+                    (float)(Height), 0, -1.0f, 1.0f);
+
             ResourceManager.GetShader("sprite").use().SetInteger("image", 0);
             ResourceManager.GetShader("sprite").SetMatrix4("projection", projection);
             ResourceManager.GetShader("particle").use().SetInteger("sprite", 0);
@@ -207,6 +220,7 @@ namespace Breakout
             // set render-specific controls
             Renderer = new SpriteRenderer(ResourceManager.GetShader("sprite"));
             Particles = new ParticleGenerator(ResourceManager.GetShader("particle"), ResourceManager.GetTexture("particle"), 500);
+            Effects = new PostProcessor(ResourceManager.GetShader("postprocessing"), Width, Height);
             // load levels
             GameLevel one = new GameLevel(); one.Load("one.lvl", Width, Height / 2);
             /*GameLevel two; two.Load("levels/two.lvl", this->Width, this->Height / 2);
@@ -228,10 +242,10 @@ namespace Breakout
             Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY,
                 ResourceManager.GetTexture("face"));
         }
+
         // game loop
         public void ProcessInput(float dt)
         {
-
             if (State != GameState.GAME_ACTIVE)
                 return;
 
@@ -259,9 +273,8 @@ namespace Breakout
             {
                 Ball.Stuck = false;
             }
-
-
         }
+
         void ResetLevel()
         {
             if (Level == 0)
@@ -281,6 +294,7 @@ namespace Breakout
             Player.Position = new Vector2(Width / 2.0f - PLAYER_SIZE.X / 2.0f, Height - PLAYER_SIZE.Y);
             Ball.Reset(Player.Position + new Vector2(PLAYER_SIZE.X / 2.0f - BALL_RADIUS, -(BALL_RADIUS * 2.0f)), INITIAL_BALL_VELOCITY);
         }
+
         public void Update(float dt)
         {
             // update objects
@@ -289,18 +303,30 @@ namespace Breakout
             DoCollisions();
             // update particles
             Particles.Update(dt, Ball, 2, new Vector2(Ball.Radius / 2.0f));
+
+
+            if (ShakeTime > 0.0f)
+            {
+                ShakeTime -= dt;
+                if (ShakeTime <= 0.0f)
+                    Effects.Shake = false;
+            }
+
             // check loss condition            
             if (Ball.Position.Y >= Height) // did ball reach bottom edge?
             {
                 ResetLevel();
                 ResetPlayer();
             }
+
         }
 
         public void Render()
         {
-            if (State != GameState.GAME_ACTIVE) return;
+            if (State != GameState.GAME_ACTIVE) 
+                return;
 
+            //Effects.BeginRender();
             // draw background
             Renderer.DrawSprite(ResourceManager.GetTexture("background"),
                 new Vector2(0.0f, 0.0f), new Vector2(Width, Height), 0.0f);
@@ -313,6 +339,9 @@ namespace Breakout
             Particles.Draw();
             // draw ball
             Ball.Draw(Renderer);
+
+           // Effects.EndRender();
+            Effects.Render(GLHelpers.glfwGetTime());
         }
     }
 }
