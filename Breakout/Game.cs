@@ -290,13 +290,13 @@ namespace Breakout
             Effects = new PostProcessor(ResourceManager.GetShader("postprocessing"), Width, Height);
             // load levels
             GameLevel one = new GameLevel(); one.Load("one.lvl", Width, Height / 2);
-            /*GameLevel two; two.Load("levels/two.lvl", this->Width, this->Height / 2);
-            GameLevel three; three.Load("levels/three.lvl", this->Width, this->Height / 2);
-            GameLevel four; four.Load("levels/four.lvl", this->Width, this->Height / 2);*/
+            GameLevel two = new GameLevel(); two.Load("two.lvl", Width, Height / 2);
+            GameLevel three = new GameLevel(); three.Load("three.lvl", Width, Height / 2);
+            GameLevel four = new GameLevel(); four.Load("four.lvl", Width, Height / 2);
             Levels.Add(one);
-            /*this->Levels.push_back(two);
-            this->Levels.push_back(three);
-            this->Levels.push_back(four);*/
+            Levels.Add(two);
+            Levels.Add(three);
+            Levels.Add(four);
             Level = 0;
 
             // configure game objects

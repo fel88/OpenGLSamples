@@ -104,7 +104,6 @@
     <EmbeddedResource Include="shaders\particle.vs" />
     <EmbeddedResource Include="shaders\post_processing.frag" />
     <EmbeddedResource Include="shaders\post_processing.vs" />
-    <EmbeddedResource Include="textures\one.lvl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
