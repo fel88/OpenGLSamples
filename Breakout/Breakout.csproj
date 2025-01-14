@@ -137,5 +137,10 @@
     <EmbeddedResource Include="textures\powerup_speed.png" />
     <EmbeddedResource Include="textures\powerup_sticky.png" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="OpenTK.GLControl">
+      <Version>3.3.3</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
