@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framebuffers", "Advanced_Op
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FramebuffersRear", "Advanced_OpenGL\Framebuffers\FramebuffersRear\FramebuffersRear.csproj", "{FAF014DF-ED40-4A91-B775-BEF0F18B4E9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicLighting", "Lighting\Basic lighting\BasicLighting.csproj", "{6D043755-E63F-4A1A-9058-D77836E4B9E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{FAF014DF-ED40-4A91-B775-BEF0F18B4E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAF014DF-ED40-4A91-B775-BEF0F18B4E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAF014DF-ED40-4A91-B775-BEF0F18B4E9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D043755-E63F-4A1A-9058-D77836E4B9E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D043755-E63F-4A1A-9058-D77836E4B9E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D043755-E63F-4A1A-9058-D77836E4B9E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D043755-E63F-4A1A-9058-D77836E4B9E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +139,7 @@ Global
 		{AA96882D-A176-464E-851C-3824856BAEED} = {734F3792-DE54-4A75-8B94-C7A9F2841B9E}
 		{CE79F6E1-343E-41C3-B69E-76FF095A9B39} = {AA96882D-A176-464E-851C-3824856BAEED}
 		{FAF014DF-ED40-4A91-B775-BEF0F18B4E9F} = {AA96882D-A176-464E-851C-3824856BAEED}
+		{6D043755-E63F-4A1A-9058-D77836E4B9E3} = {C0D290C3-8A03-45E9-9EAB-7B1005B0EDD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47BA7212-91C4-469F-9BD4-7F2E8CF459FB}
