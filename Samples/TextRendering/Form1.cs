@@ -68,7 +68,7 @@ namespace OpenGLSamples
 
                 GL.Viewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 
-                Matrix4 projection = Matrix4.CreateOrthographicOffCenter(0, SCR_WIDTH, 0, SCR_HEIGHT, -1000, 1000);
+                Matrix4 projection = Matrix4.CreateOrthographicOffCenter(0, SCR_WIDTH, 0, SCR_HEIGHT, 0, 1);
 
                 shader.use();
                 // glUniformMatrix4fv(glGetUniformLocation(shader.ID, "projection"), 1, false, glm::value_ptr(projection));
@@ -113,7 +113,7 @@ namespace OpenGLSamples
             }
 
             // find path to font
-            var fontBytes = ReadResourceRaw("Antonio-Bold.ttf");
+            var fontBytes = ReadResourceRaw("OCRAEXT.TTF");
 
             // load font as face
             Face face = new Face(ft, fontBytes, 0);
@@ -128,7 +128,7 @@ namespace OpenGLSamples
             for (char c = (char)0; c < 128; c++)
             {
                 face.LoadChar(c, LoadFlags.Render, LoadTarget.Normal);
-
+                //   face.Glyph.RenderGlyph(RenderMode.Normal);
                 // Load character glyph 
                 //if (FT_Load_Char(face, c, FT_LOAD_RENDER))
                 {
@@ -262,9 +262,9 @@ namespace OpenGLSamples
 
                 GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
                 // render quad
-                GL.DrawArrays(BeginMode.Triangles, 0, 6);
+                GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
                 // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-                x += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+                x += (ch.Advance) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
             }
             GL.BindVertexArray(0);
             GL.BindTexture(TextureTarget.Texture2D, 0);
@@ -273,24 +273,16 @@ namespace OpenGLSamples
 
         void Redraw()
         {
-            GL.Enable(EnableCap.DepthTest);
-
             GL.ClearColor(0.2f, 0.3f, 0.3f, 1f);
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             RenderText(shader, "This is sample text", 25.0f, 25.0f, 1.0f, new Vector3(0.5f, 0.8f, 0.2f));
-            RenderText(shader, "(C) LearnOpenGL.com", 540.0f, 570.0f, 0.5f, new Vector3(0.3f, 0.7f, 0.9f));
-
-
+            RenderText(shader, "(C) LearnOpenGL.com", 470.0f, SCR_HEIGHT - 96, 0.5f, new Vector3(0.3f, 0.7f, 0.9f));
         }
-
-        float timeTemp = 0;
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             glControl.Invalidate();
-
         }
     }
 }

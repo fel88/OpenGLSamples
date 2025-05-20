@@ -9,9 +9,15 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="fonts\Antonio-Bold.ttf" />
+    <None Remove="fonts\Antonio-Light.ttf" />
+    <None Remove="fonts\Antonio-Regular.ttf" />
+    <None Remove="fonts\OCRAEXT.TTF" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="fonts\Antonio-Bold.ttf" />
+    <EmbeddedResource Include="fonts\Antonio-Light.ttf" />
+    <EmbeddedResource Include="fonts\Antonio-Regular.ttf" />
+    <EmbeddedResource Include="fonts\OCRAEXT.TTF" />
     <EmbeddedResource Include="shaders\text.fs" />
     <EmbeddedResource Include="shaders\text.vs" />
   </ItemGroup>
