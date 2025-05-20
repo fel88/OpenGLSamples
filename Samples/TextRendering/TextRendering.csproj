@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="fonts\Antonio-Bold.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="fonts\Antonio-Bold.ttf" />
+    <EmbeddedResource Include="shaders\text.fs" />
+    <EmbeddedResource Include="shaders\text.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="OpenTK" Version="3.3.3" />
+    <PackageReference Include="OpenTK.GLControl" Version="3.3.3" />
+    <PackageReference Include="SharpFont.Dependencies" Version="2.6.0" />
+    <PackageReference Include="SpaceWizards.SharpFont" Version="1.0.2" />
+  </ItemGroup>
+</Project>
