@@ -8,7 +8,9 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using OpenTK;
+using OpenTK.GLControl;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace AsteroidField
 {
@@ -65,7 +67,8 @@ namespace AsteroidField
             InitializeComponent();
 
             MouseWheel += Form1_MouseWheel;
-            glControl = new OpenTK.GLControl(new OpenTK.Graphics.GraphicsMode(32, 24, 0, 4), 3, 3, OpenTK.Graphics.GraphicsContextFlags.Default);
+            //glControl = new GLControl(new OpenTK.Graphics.GraphicsMode(32, 24, 0, 4), 3, 3, OpenTK.Graphics.GraphicsContextFlags.Default);
+            glControl = new GLControl(new GLControlSettings ());
             glControl.MouseMove += GlControl_MouseMove;
             glControl.Paint += Gl_Paint;
             Controls.Add(glControl);

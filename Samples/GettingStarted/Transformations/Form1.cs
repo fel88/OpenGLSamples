@@ -7,7 +7,9 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using OpenTK;
+using OpenTK.GLControl;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace OpenGLSamples
 {
@@ -37,7 +39,10 @@ namespace OpenGLSamples
             InitializeComponent();
 
             MouseWheel += Form1_MouseWheel;
-            glControl = new OpenTK.GLControl(new OpenTK.Graphics.GraphicsMode(32, 24, 0, 4), 3, 3, OpenTK.Graphics.GraphicsContextFlags.ForwardCompatible);
+            GLControlSettings gsettings = new GLControlSettings();
+            
+            //glControl = new GLControl(new OpenTK.Graphics.GraphicsMode(32, 24, 0, 4), 3, 3, OpenTK.Graphics.GraphicsContextFlags.ForwardCompatible);
+            glControl = new GLControl(gsettings);
 
 
             glControl.MouseMove += GlControl_MouseMove;

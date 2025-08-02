@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace AsteroidField
 {
