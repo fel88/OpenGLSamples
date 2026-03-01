@@ -1,3 +1,4 @@
+*.user
 MigrationBackup/
 .vs/
 bin/

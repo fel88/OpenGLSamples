@@ -1,4 +1,5 @@
 ﻿using OpenTK;
+using OpenTK.Mathematics;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -68,7 +69,7 @@ namespace Breakout
                     {
                         Vector2 pos = new Vector2(unit_width * x, unit_height * y);
                         Vector2 size = new Vector2(unit_width, unit_height);
-                        GameObject obj = new GameObject(pos, size, ResourceManager.GetTexture("block_solid"), new OpenTK.Vector3(0.8f, 0.8f, 0.7f));
+                        GameObject obj = new GameObject(pos, size, ResourceManager.GetTexture("block_solid"), new Vector3(0.8f, 0.8f, 0.7f));
                         obj.IsSolid = true;
                         Bricks.Add(obj);
                     }

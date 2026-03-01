@@ -7,7 +7,9 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using OpenTK;
+using OpenTK.GLControl;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace pbr
 {
@@ -63,7 +65,11 @@ namespace pbr
             InitializeComponent();
 
             MouseWheel += Form1_MouseWheel;
-            glControl = new OpenTK.GLControl(new OpenTK.Graphics.GraphicsMode(32, 24, 0, 4), 3, 3, OpenTK.Graphics.GraphicsContextFlags.Default);
+            //glControl = new OpenTK.GLControl(new OpenTK.Graphics.GraphicsMode(32, 24, 0, 4), 3, 3, OpenTK.Graphics.GraphicsContextFlags.Default);
+            glControl = new GLControl(new GLControlSettings()
+            {
+                NumberOfSamples = 8
+            });
             label1 = new Label() { AutoSize = true };
             glControl.Controls.Add(label1);
             label1.BackColor = Color.FromArgb(25, 25, 25);
@@ -124,7 +130,7 @@ namespace pbr
         const int SCR_HEIGHT = 720;
 
         private void Gl_Paint(object sender, PaintEventArgs e)
-        {            
+        {
             if (!glControl.Context.IsCurrent)
             {
                 glControl.MakeCurrent();

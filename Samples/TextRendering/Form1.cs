@@ -7,8 +7,10 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using OpenTK;
+using OpenTK.GLControl;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 using OpenTK.Platform.Windows;
 using SharpFont;
 
@@ -28,8 +30,11 @@ namespace OpenGLSamples
         {
             InitializeComponent();
 
-            glControl = new GLControl(new GraphicsMode(32, 24, 0, 4), 3, 3, GraphicsContextFlags.ForwardCompatible);
-
+            //glControl = new GLControl(new GraphicsMode(32, 24, 0, 4), 3, 3, GraphicsContextFlags.ForwardCompatible);
+            glControl = new GLControl(new GLControlSettings()
+            {
+                NumberOfSamples = 8
+            });
             glControl.Paint += Gl_Paint;
             Controls.Add(glControl);
             glControl.Dock = DockStyle.Fill;

@@ -1,49 +1,65 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows.Forms;
-using OpenTK;
+﻿using OpenTK;
+using OpenTK.GLControl;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
+using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using Keys = System.Windows.Forms.Keys;
 
 namespace Breakout
 {
     public partial class Form1 : Form
     {
-        private void Form1_Load(object sender, EventArgs e)
-        {
 
 
-        }
 
         // timing
         float deltaTime = 0.0f;
         float lastFrame = 0.0f;
-        
+
         const int WM_KEYDOWN = 0x100;
         const int WM_KEYUP = 0x101;
 
-        protected override bool ProcessKeyPreview(ref Message m)
-        {
-            bool release = false;
-            bool press = false;
-            if (m.Msg == WM_KEYDOWN)
-            {
-                press = true;
-            }
-            else if (m.Msg == WM_KEYUP)
-            {
-                release = true;
-            }
 
-            var key = (int)m.WParam;
-            if (key >= 0 && key < 1024)
+        private const int WM_SYSKEYDOWN = 0x0104; // For system keys (e.g., Alt + key)
+
+
+        public class GlobalMessageFilter : IMessageFilter
+        {
+
+            public bool PreFilterMessage(ref Message m)
             {
-                if (press)
-                    Breakout.Keys[key] = true;
-                else if (release)
-                    Breakout.Keys[key] = false;
+                bool release = false;
+                bool press = false;
+
+                if (m.Msg == WM_KEYDOWN) // 0x100 is WM_KEYDOWN
+                {
+                    press = true;
+                }
+                if (m.Msg == WM_KEYUP)
+                {
+                    release = true;
+
+                }
+
+                var key = (int)m.WParam;
+                if (key >= 0 && key < 1024)
+                {
+                    if (press)
+                        Breakout.Keys[key] = true;
+                    else if (release)
+                        Breakout.Keys[key] = false;
+                }
+
+                return false;
             }
-            return base.ProcessKeyPreview(ref m);
         }
+
+
+
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -54,21 +70,29 @@ namespace Breakout
                 return true;
             }
 
-
             return false;
         }
+
         public Form1()
         {
-            InitializeComponent();
-
-            glControl = new OpenTK.GLControl(new OpenTK.Graphics.GraphicsMode(32, 24, 0, 4), 3, 3, OpenTK.Graphics.GraphicsContextFlags.Default);
+            InitializeComponent();            
+            
+            Application.AddMessageFilter(new GlobalMessageFilter());
+            //glControl = new OpenTK.GLControl(new OpenTK.Graphics.GraphicsMode(32, 24, 0, 4), 3, 3, OpenTK.Graphics.GraphicsContextFlags.Default);
+            glControl = new GLControl(new GLControlSettings()
+            {
+                NumberOfSamples = 8
+            });
 
             glControl.Paint += Gl_Paint;
             Controls.Add(glControl);
             glControl.Dock = DockStyle.Fill;
+
+
             Width = SCREEN_WIDTH;
             Height = SCREEN_HEIGHT;
         }
+
 
 
         private void Form1_MouseWheel(object sender, MouseEventArgs e)
@@ -92,7 +116,7 @@ namespace Breakout
         // The height of the screen
         const int SCREEN_HEIGHT = 600;
 
-        Game Breakout = new Game(SCREEN_WIDTH, SCREEN_HEIGHT);
+        static Game Breakout = new Game(SCREEN_WIDTH, SCREEN_HEIGHT);
         void init()
         {
 
@@ -110,7 +134,7 @@ namespace Breakout
 
 
 
-    
+
 
 
         double lastFps = 0;
@@ -141,8 +165,6 @@ namespace Breakout
             Redraw();
             glControl.SwapBuffers();
         }
-
-
 
         Camera camera = new Camera(new Vector3(0.0f, 0, 155));
         void Redraw()

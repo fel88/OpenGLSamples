@@ -1,5 +1,7 @@
 ﻿using OpenTK;
+using OpenTK.Mathematics;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Security.Cryptography;
@@ -248,7 +250,6 @@ namespace Breakout
                     Effects.Chaos = true;
             }
         }
-
 
         // initialize game state (load all shaders/textures/levels)
         public void Init()
